@@ -1,0 +1,1 @@
+export const env={"PUBLIC_SUPABASE_ANON_KEY":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRjbnR5ZW1hZGR1ZHpnamZ4cXF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ2OTM3ODgsImV4cCI6MjA0MDI2OTc4OH0.99op72OQJTjaewZZ_dJhXpO_k1zFLkiTZHuvBPujMgM","PUBLIC_SUPABASE_URL":"https://tcntyemaddudzgjfxqqx.supabase.co"}

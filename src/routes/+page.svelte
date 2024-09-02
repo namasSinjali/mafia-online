@@ -68,11 +68,11 @@
 		</form>
 	</Card.Content>
 	<Card.Footer class="flex justify-between">
-		<Button href={'/game?' + new URLSearchParams({ ...searchParams, type: 'host' }).toString()}
+		<Button href={'./game?' + new URLSearchParams({ ...searchParams, type: 'host' }).toString()}
 			>Host</Button
 		>
 		<Button
-			href={'/game?' + new URLSearchParams({ ...searchParams, type: 'join' }).toString()}
+			href={'./game?' + new URLSearchParams({ ...searchParams, type: 'join' }).toString()}
 			variant="outline">Join</Button
 		>
 	</Card.Footer>

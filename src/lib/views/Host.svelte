@@ -346,7 +346,7 @@
 		</Card.Content>
 		<Card.Footer class="flex justify-between">
 			<Button on:click={startGame}>Start Game</Button>
-			<Button variant="outline" href="../">Exit Room</Button>
+			<Button variant="outline" href="./">Exit Room</Button>
 		</Card.Footer>
 	</Card.Root>
 {:else if currentEvent == 'play'}

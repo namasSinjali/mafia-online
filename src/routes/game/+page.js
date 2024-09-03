@@ -14,5 +14,5 @@ export function load({ url }) {
 		};
 	}
 	!gameId && toast.error('Please Enter Room ID');
-	redirect(303, '/');
+	redirect(303, './');
 }

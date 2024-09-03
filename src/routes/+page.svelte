@@ -7,12 +7,14 @@
 
 	import Pencil from 'lucide-svelte/icons/pencil';
 
-	// let username = localStorage.getItem("username");
-	let username;
+	let username = localStorage.getItem('username');
+	// let username;
 	if (!username) {
 		username = 'User#' + Math.floor(Math.random() * 1000);
 	}
-	// $: {localStorage.setItem("username", username)}
+	$: {
+		localStorage.setItem('username', username);
+	}
 	let newUsername = username;
 
 	let popoverOpen = false;
@@ -22,7 +24,7 @@
 	$: {
 		searchParams = {};
 		if (gameId) searchParams.id = gameId;
-		searchParams.username = username;
+		// searchParams.username = username;
 	}
 
 	function changeUsername(e) {
@@ -68,12 +70,14 @@
 		</form>
 	</Card.Content>
 	<Card.Footer class="flex justify-between">
-		<Button href={'./game?' + new URLSearchParams({ ...searchParams, type: 'host' }).toString()}
-			>Host</Button
-		>
+		<Button href={'./game?' + new URLSearchParams({ ...searchParams, type: 'host' }).toString()}>
+			Host
+		</Button>
 		<Button
 			href={'./game?' + new URLSearchParams({ ...searchParams, type: 'join' }).toString()}
-			variant="outline">Join</Button
+			variant="outline"
 		>
+			Join
+		</Button>
 	</Card.Footer>
 </Card.Root>

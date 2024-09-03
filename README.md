@@ -5,15 +5,25 @@ This tool is for you.
 
 **Mafia Online** can moderate the game for you while you are enjoying with your friends.
 
-Try the website: ![]
+Try website: [https://namassinjali.github.io/mafia-online/](https://namassinjali.github.io/mafia-online/)
 
 ## Contribution or Self-hosting
 
 If you wish to host yourself or make changes to code.
 
+### Setup Supabase
+
+Create new [Supabase](https://supabase.com/) project and add `URL` and `ANON_KEY` as environent variables.
+
+```sh
+# .env.local
+PUBLIC_SUPABASE_URL=<supabase_url>
+PUBLIC_SUPABASE_ANON_KEY=<supabase_anon-key>
+```
+
 ### Clone the project
 
-Clone this repository to your local computer 
+Clone this repository to your local computer
 
 ```bash
 # clone repository

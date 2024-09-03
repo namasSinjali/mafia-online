@@ -18,7 +18,6 @@
 	} from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
 
-	import { send as transitionSend, receive as transitionReceive } from '$lib/transition.js';
 	import { scale } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 
@@ -30,16 +29,6 @@
 	export let username;
 
 	const isPlayer = finalizedPlayers.some((r) => r == username);
-	console.log({ isPlayer });
-
-	// $: [alivePlayers, deadPlayers] = finalizedPlayers.reduce((acc, k)=>{
-	//     if (gameState[k].isAlive){
-	//         acc[0].push(k);
-	//     } else {
-	//         acc[1].push(k);
-	//     }
-	//     return acc;
-	// }, [[],[]]);
 
 	let votes = {};
 	$: votedBy = Object.keys(votes).reduce((acc, k, i) => {
@@ -72,10 +61,6 @@
 	let gameEnded = false;
 
 	channel.on('broadcast', { event: 'update' }, ({ payload }) => {
-		// if (currentEvent != 'play') return
-		// if (finalizedPlayers.all(p=>p != payload.key)) return
-
-		console.log(payload);
 		if (payload.votes) votes = payload.votes;
 		if (payload.gameState) gameState = payload.gameState;
 		if (payload.gameTime) gameTime = payload.gameTime;
@@ -84,7 +69,6 @@
 	});
 
 	if (assignedRoles[username] == 'mafia') {
-		console.log('insert');
 		channel.on('broadcast', { event: 'mafia-communicate' }, ({ payload }) => {
 			if (assignedRoles[payload.key] == 'mafia') {
 				mafiaTargets[payload.key] = payload.targetedPlayer;
@@ -187,34 +171,6 @@
 		votedPlayer = null;
 		mafiaTargets = {};
 		targetedPlayer = null;
-
-		// if (gameTime == 'day'){
-		//     let kill, protect, heal;
-		//     for (let key in gameState){
-		//         if (gameState[key].isKilled){
-		//             kill = key;
-		//         } else if (gameState[key].isHealed) {
-		//             heal = key;
-		//         } else if (gameState[key].isProtected) {
-		//             protect = key;
-		//         }
-		//     }
-
-		//     let description = "";
-		//     if (kill) {
-		//         if (heal == kill){
-		//             description += `"${kill}" was attacked 💀 and healed.\n`;
-		//         } else {
-		//             description += `"${kill}" was attacked 💀.\n`;
-		//             description += `"${heal}" was healed.\n`;
-		//         }
-		//     }
-		//     description += `"${protect}" was slept with.\n`;
-
-		//     toast.message("Night Outcome", {
-		//         description
-		//     })
-		// }
 	}
 	function confirm() {
 		if (isPlayer && gameState[username].isAlive) {
@@ -242,8 +198,6 @@
 	<Card.Content>
 		<div class="flex flex-col gap-2">
 			{#each finalizedPlayers as key (key)}
-				<!-- {#each Object.entries(gameState) as [key, value]} -->
-				<!-- {#each gameState as value} -->
 				<div
 					animate:flip
 					style="--my-color:var(--my-color-{playerIndex[key]})"
@@ -330,7 +284,6 @@
 										style="--my-color:var(--my-color-{playerIndex[v]})"
 										class="-mt-4 w-4 fill-[var(--my-color)] stroke-card first:m-0"
 									/>
-									<!-- <div style="--my-color:var(--my-color-{playerIndex[v]})" class="w-full h-1 bg-[var(--my-color)]"></div> -->
 								{/each}
 							{:else if assignedRoles[username] == 'doctor' && targetedPlayer == key}
 								<BriefcaseMedicalIcon class="-mt-4 w-4 stroke-green-500 first:m-0" />

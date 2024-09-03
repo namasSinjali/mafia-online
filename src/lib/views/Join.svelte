@@ -57,7 +57,6 @@
 				anotherHost = temp[key].isHost || anotherHost;
 			}
 			onlinePlayers = temp;
-			console.log({ onlinePlayers, unselectedPlayers });
 		})
 		.on('broadcast', { event: 'preparation' }, ({ payload }) => {
 			currentEvent = 'preparation';

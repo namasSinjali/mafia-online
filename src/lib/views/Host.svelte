@@ -1,5 +1,4 @@
 <script>
-	import { onMount, onDestroy } from 'svelte';
 	import { Toggle } from '$lib/components/ui/toggle';
 	import { Separator } from '$lib/components/ui/separator';
 	import * as Card from '$lib/components/ui/card/index.js';
@@ -12,7 +11,6 @@
 
 	import { send as transitionSend, receive as transitionReceive } from '$lib/transition.js';
 	import { flip } from 'svelte/animate';
-	import { supabase } from '$lib/supabaseClient.js';
 
 	export let channel;
 	export let username;
@@ -164,7 +162,6 @@
 			assignedRoles[p] = shuffledRoles[i];
 			gameState[p] = { isAlive: true, isKilled: false, isProtected: false, isHealed: false };
 		});
-		// gameState = finalizedPlayers.map((p, i)=> ({username:p, isAlive:true, role:shuffledRoles[i]}))
 		channel.send({
 			type: 'broadcast',
 			event: 'play',
@@ -177,7 +174,6 @@
 
 	function proceed(event, force = false) {
 		if (!force && nPlayersConfirmed < playersAlive.length) {
-			console.log('adsf');
 			toast('All players have not confirmed. Do you still want to proceed?', {
 				action: {
 					label: 'Proceed',
@@ -216,20 +212,17 @@
 				protected: null
 			};
 		} else if (gameTime == 'night') {
-			console.log({ assignedRoles, playersAlive, action });
 			for (let key of playersAlive) {
 				if (assignedRoles[key] == 'mafia' && !action.killed) {
 					toast.message('Mafia has not played yet.');
 					return;
 				}
 				if (assignedRoles[key] == 'doctor' && !action.healed) {
-					console.log('doctor');
 					toast.message('Doctor has not played yet.');
 					return;
 				}
 				if (assignedRoles[key] == 'prostitute' && !action.protected) {
 					toast.message('Prostitute has not played yet.');
-					console.log('prostitute');
 					return;
 				}
 			}
